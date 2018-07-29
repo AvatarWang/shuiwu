@@ -12,11 +12,11 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <td>编号</td>
+                <td style="width:50px">编号</td>
                 <td>题干</td>
-                <td>正确答案</td>
-                <td>用户答案</td>
-                <td>得分</td>
+                <td style="width:100px">正确答案</td>
+                <td style="width:100px">用户答案</td>
+                <td style="width:50px">得分</td>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +25,10 @@
                 <td>{{d.Question}}</td>
                 <td>{{d.Answer}}</td>
                 <td>{{d.UserAnswer}}</td>
-                <td>{{d.Score}}</td>
+                <td>
+                    <p class="label label-success" v-if="d.Answer==d.UserAnswer">正确</p>
+                    <p class="label label-danger" v-if="d.Answer!=d.UserAnswer">错误</p>
+                </td>
             </tr>
         </tbody>
     </table>
