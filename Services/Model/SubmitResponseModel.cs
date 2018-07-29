@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Services.Model
 {
-    public class UserAnswer
+    public class SubmitResponseModel
     {
-        public string QuestionId { get; set; }
-        public string Answer { get; set; }
+        public string Score { get; set; }
+        public string Status { get; set; }
+
     }
 }

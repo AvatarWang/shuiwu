@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,8 @@ namespace Services.Model
         public string OptionD { get; set; }
         public string Question { get; set; }
         public string Type { get; set; }
+        [JsonIgnore]
+        public string Answer { get; set; }
         public string Multi { get; set; }
     }
 }

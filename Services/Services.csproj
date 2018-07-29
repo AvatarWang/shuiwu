@@ -36,6 +36,9 @@
     <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -57,12 +60,13 @@
     <Compile Include="LoginService.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\QuestionModel.cs" />
+    <Compile Include="Model\SubmitAnswerParameter.cs" />
+    <Compile Include="Model\SubmitResponseModel.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserAnswer.cs" />
     <Compile Include="Model\UserScoreModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionService.cs" />
-    <Compile Include="ReportService.cs" />
     <Compile Include="UserAnswerService.cs" />
   </ItemGroup>
   <ItemGroup>

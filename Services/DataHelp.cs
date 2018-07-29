@@ -15,13 +15,19 @@ namespace Services
         public static User GetUserByAccount(string account)
         {
             User user = new User();
+            string sql = string.Format("SELECT [ID] FROM [WaterSupplySecurity].[dbo].[User] where [Account]={0}", account);
+            user = DataAcccessHelper.QueryFirstOrDefault<User>(sql);
             return user;
         }
-        //获取用户题目和答案
-        public static List<UserAnswer> GetUserAnswer(string userId)
+        public static bool InsertLoginInfo(string userId)
         {
-            List<UserAnswer> userAnswerList = new List<UserAnswer>();
-            return userAnswerList;
+            string sql = string.Format(@"INSERT INTO [WaterSupplySecurity].[dbo].[UserScore]([UserID],[CreateTime]) VALUES({0},{1})",userId,DateTime.Now);
+            int reuslt = DataAcccessHelper.Execute(sql.ToString());
+            if (reuslt > 0)
+            {
+                return true;
+            }
+            return false;
         }
         //获取用户登录提交和得分情况
         public static UserScoreModel GetUserScore(string userId)
@@ -59,6 +65,32 @@ namespace Services
                 list = cache["Keys"] as List<QuestionEntity>;
             }
             return list;
+        }
+        public static bool SubmitAnswer(SubmitAnswerParameter parameter)
+        {
+            StringBuilder sql = new StringBuilder();
+            foreach (var answer in parameter.UserAnswerList)
+            {
+                sql.Append(string.Format(@"INSERT INTO [WaterSupplySecurity].[dbo].[UserAnswer]([UserId],[QuestionId],[Answer]) VALUES({0},{1},{2});", parameter.UserId,answer.QuestionId,answer.Answer));
+            }
+            int reuslt = DataAcccessHelper.Execute(sql.ToString());
+            if (reuslt > 0)
+            {
+                return true;
+            }
+            return false;
+
+        }
+        public static bool SubmitScore(string userId, int score)
+        {
+            //string sql = string.Format(@"INSERT INTO [WaterSupplySecurity].[dbo].[UserScore]([UserID],[IsSubmit],[CreateTime],[Score],[UpdateTime]) VALUES({0},{1},{2},{3},{4})",);
+            string sql = string.Format(@"UPDATE [WaterSupplySecurity].[dbo].[UserScore] SET [IsSubmit] = 1,[Score] = {0},[UpdateTime] = {1} WHERE UserID={2}",score,DateTime.Now,userId);
+            int reuslt = DataAcccessHelper.Execute(sql.ToString());
+            if (reuslt > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
