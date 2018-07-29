@@ -124,5 +124,17 @@ where ua.UserId=" + param.id;
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult RemoteLogin(string account,string passWord)
+        {
+            LoginService service = new LoginService();
+            var model = service.Login(account, passWord);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult RemoteIndex(string userId)
+        {
+            QuestionService service = new QuestionService();
+            var model = service.GetQuestionList(userId);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }

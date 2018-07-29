@@ -17,7 +17,7 @@ var vm = new Vue({
 		this.$nextTick(function(){
             axios({
                 method: 'get',
-                url: config.getQuestionList_href,
+                url: config.getQuestionList_href + "?userId=" + this.userId,
                 data: {
                     userid: this.userId
                 }
