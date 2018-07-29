@@ -19,15 +19,15 @@ namespace Services
                 var oneList = questionList.Where(x => x.Type == "1"&&x.Multi=="0").Take(8).ToList();
                 var oneMultiList = questionList.Where(x => x.Type == "1" && x.Multi == "1").Take(2).ToList();
                 int type = 6;
-                int multi = 2;
+                int multi = 3;
                 List<QuestionEntity> singleQuestionList = new List<QuestionEntity>();
                 List<QuestionEntity> multiQuestionList = new List<QuestionEntity>();
-                for (int j = 0; j < multi; j++)
+                for (int j = 1; j < multi; j++)
                 {
                     for (int i = 1; i < type; i++)
                     {
 
-                        if (j == 0)
+                        if (j == 1)
                         {
                             singleQuestionList.AddRange(questionList.Where(x => x.Type == i.ToString() && x.Multi == j.ToString()).Take(8).ToList());
                         }
