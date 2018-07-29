@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Caching;
 
 namespace Services
 {
@@ -30,6 +32,14 @@ namespace Services
         public static List<QuestionEntity> GetQuestionList()
         {
             List<QuestionEntity> list = new List<QuestionEntity>();
+            Cache cache = HttpRuntime.Cache;
+            if (cache["Keys"] == null)
+            {
+                cache.Insert("Keys", list);
+            }
+            {
+                list = cache["Keys"] as List<QuestionEntity>;
+            }
             return list;
         }
     }
