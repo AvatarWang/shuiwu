@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>答题</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <script src="static/js/vue.js"></script>
+    <script src="static/js/axios.min.js"></script>
+    <script src="static/js/three.min.js"></script>
+    <script src="static/js/json2.js"></script>
+    <script src="js/config/config.js"></script>
+    <!–[if lt IE9]>
+    <script src="static/js/html5.js"></script>
+    <![endif]–>
+</head>
+<body>
+    <div class="pageBg"></div>
+	<div class="wrap" id="app">
+		<div class="paper">
+            <div class="title">华衍杯  ·  江苏省首届供水安全知识竞赛</div>
+            <div class="timeBox">距离考试结束还有<span>{{timer[0]}}</span>分钟<span>{{timer[1]}}</span>秒</div>
+            <div class="content">
+                <div class="questionBox" v-for="(question,index) of questionList">
+                    <div class="questionTxt">{{index+1}}.  {{question.Question}}</div>
+                    <div class="questionAnswer">
+                        <input type="checkbox" v-if="question.Multi==2" v-model="question.userAnswerList[0]" :true-value="'A'" @click="choseAnswer()">
+                        <input type="radio" v-if="question.Multi==1" v-model="question.userAnswerList[0]" v-bind:name="question.name" value="A" @click="choseAnswer()">
+                        <span>{{question.OptionA}}</span>
+                    </div>
+                    <div class="questionAnswer">
+                        <input type="checkbox" v-if="question.Multi==2" v-model="question.userAnswerList[1]" :true-value="'B'" @click="choseAnswer()">
+                        <input type="radio" v-if="question.Multi==1" v-model="question.userAnswerList[0]" v-bind:name="question.name" value="B" @click="choseAnswer()">
+                        <span>{{question.OptionB}}</span>
+                    </div>
+                    <div class="questionAnswer">
+                        <input type="checkbox" v-if="question.Multi==2" v-model="question.userAnswerList[2]" :true-value="'C'" @click="choseAnswer()">
+                        <input type="radio" v-if="question.Multi==1" v-model="question.userAnswerList[0]" v-bind:name="question.name" value="C" @click="choseAnswer()">
+                        <span>{{question.OptionC}}</span>
+                    </div>
+                    <div class="questionAnswer">
+                        <input type="checkbox" v-if="question.Multi==2" v-model="question.userAnswerList[3]" :true-value="'D'" @click="choseAnswer()">
+                        <input type="radio" v-if="question.Multi==1" v-model="question.userAnswerList[0]" v-bind:name="question.name" value="D" @click="choseAnswer()">
+                        <span>{{question.OptionD}}</span>
+                    </div>
+                </div>
+                <button type="button" class="submitBtn">提交</button>
+            </div>
+        </div>
+	</div>
+
+	<script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+html,body{
+	padding: 0;
+	margin: 0;
+	font-family: '微软雅黑';
+}
+*{
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.pageBg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: url(../images/index_bg.jpg) no-repeat center;
+    background-size: 100% 100%;
+}
+.wrap{
+	width: 100%;
+	padding: 60px 0;
+	position: relative;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 2;
+}
+.paper{
+    width: 814px;
+    margin: 0 auto;
+    padding: 30px 40px;
+    border: 1px solid #dbdbdb;
+    background-color: #f2f2f2;
+    box-shadow: -1px 10px 45px #666;
+}
+.title{
+    color: #4C4C4C;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.content{
+    border-top: 3px solid #3c9ccf;
+}
+.questionBox{
+    width: 100%;
+    margin-top: 30px;
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.questionBox .questionTxt{
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.questionBox .questionAnswer{
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding-left: 15px;
+}
+.questionBox .questionAnswer span{
+    vertical-align: middle;
+}
+.questionBox .questionAnswer input[type='radio'],.questionBox .questionAnswer input[type='checkbox']{
+    vertical-align: middle;
+    outline: none;
+}
+.timeBox{
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 3;
+    width: 400px;
+    height: 60px;
+    color: #fff;
+    background-color: #3b6c9d;
+    box-shadow: 2px 3px 16px #666;;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    line-height: 60px;
+    text-align: center;
+    margin-left: -200px;
+}
+.timeBox span{
+    display: inline-block;
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 18px;
+    width: 24px;
+    text-align: right;
+}
+.submitBtn{
+    display: block;
+    width: 100px;
+    height: 40px;
+    background-color: #0077e6;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin: 30px auto 0;
+}
