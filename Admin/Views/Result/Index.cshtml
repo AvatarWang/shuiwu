@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>用户分数统计</h2>
+
+<div id="vueBody">
+    <div class="form-inline">
+        <input type="text" class="form-control" v-model:value="queryParam.name" placeholder="请输入姓名" />
+        <input type="button" class="btn btn-default" value="查询" @@click.prevent.default="queryList(1)" />
+        <a class="btn btn-primary" href="exportall">导出</a>
+
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>用户编号</td>
+                <td>姓名</td>
+                <td>分数</td>
+                <td>开始时间</td>
+                <td>结束时间</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="d in listofview">
+                <td>{{d.UserId}}</td>
+                <td>{{d.UserName}}</td>
+                <td>{{d.Score}}</td>
+                <td>{{d.CreateTime}}</td>
+                <td>{{d.UpdateTime}}</td>
+                <td><a :href="['Detail?id=']+d.UserId +['&score='] + d.Score" class="btn btn-primary">查看</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="kkpager" style="width:90%">
+    </div>
+</div>
+
+
+<script>
+    var vmvue = new Vue({
+        el: "#vueBody",
+        data: {
+            listofview: {},
+            queryParam: {
+                pageIndex: 1,
+                pageSize: 15,
+                name: ""
+            }
+        },
+        methods:
+            {
+                queryList: function (pageIndex) {
+
+                    vmvue.queryParam.pageIndex = pageIndex;
+
+                    $.ajax({
+                        url: "GetResult?pageIndex=" + vmvue.queryParam.pageIndex + "&pageSize=" + vmvue.queryParam.pageSize,
+                        type: "post",
+                        data: JSON.stringify(vmvue.queryParam),
+                        contentType: "application/json",
+                        success: function (data) {
+                            vmvue.listofview = data.Body;
+
+                            pageCount = data.Page.PageCount;
+                            totalCount = data.Page.TotalCount;
+
+                            kkpager.generPageHtml({
+                                pno: pageIndex,
+                                //总页码
+                                total: pageCount,
+                                //总数据条数
+                                totalRecords: totalCount,
+                                mode: 'click',//默认值是link，可选link或者click
+                                click: function (n) {
+                                    // do something
+                                    vmvue.queryList(n);
+                                    this.selectPage(n);
+                                    return false;
+                                }
+                            }, true);
+                        }
+                    })
+                },
+                exportData: function () {
+
+                    $.ajax({
+                        url: "ExportAll",
+
+                        success: function (data) {
+
+                        }
+                    })
+                }
+            }
+    });
+
+    vmvue.queryList(1);
+</script>

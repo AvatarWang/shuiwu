@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div id="vueBody">
+    <h2>    {{userInfo.Name}}  总分：{{queryParam.score}}分</h2>
+    @*<input type="button" class="btn btn-primary" value="导出" />*@
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>编号</td>
+                <td>题干</td>
+                <td>正确答案</td>
+                <td>用户答案</td>
+                <td>得分</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="d in listofview">
+                <td>{{d.ID}}</td>
+                <td>{{d.Question}}</td>
+                <td>{{d.Answer}}</td>
+                <td>{{d.UserAnswer}}</td>
+                <td>{{d.Score}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="kkpager" style="width:90%">
+    </div>
+</div>
+
+
+<script>
+
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+
+    var vmvue = new Vue({
+        el: "#vueBody",
+        data: {
+            listofview: {},
+            userInfo: {},
+            queryParam: {
+                pageIndex: 1,
+                pageSize: 1,
+                name: "",
+                score: ""
+            }
+        },
+        methods:
+            {
+                queryList: function (pageIndex) {
+
+                    $.ajax({
+                        url: "GetDetail",
+                        type: "post",
+                        data: JSON.stringify(vmvue.queryParam),
+                        contentType: "application/json",
+                        success: function (data) {
+                            vmvue.listofview = data.Body.list;
+                            vmvue.userInfo = data.Body.userInfo;
+                        }
+                    })
+                }
+            }
+    });
+
+    vmvue.queryParam.id = getQueryString("id");
+    vmvue.queryParam.score = getQueryString("score");
+
+    vmvue.queryList();
+</script>

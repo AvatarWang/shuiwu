@@ -71,7 +71,7 @@ namespace Admin.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            var datra = DataAcccessHelper.Query<QuestionModel>("select * from QuestionBank ");
+          var datra = DataAcccessHelper.Query<QuestionModel>("select * from QuestionBank ");
             //ViewBag.ReturnUrl = returnUrl;
             return View();
         }
