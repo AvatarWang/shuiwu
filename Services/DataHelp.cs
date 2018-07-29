@@ -15,13 +15,13 @@ namespace Services
         public static User GetUserByAccount(string account)
         {
             User user = new User();
-            string sql = string.Format("SELECT [ID] FROM [WaterSupplySecurity].[dbo].[User] where [Account]={0}", account);
+            string sql = string.Format("SELECT [ID] FROM [WaterSupplySecurity].[dbo].[User] where [Account]='{0}'", account);
             user = DataAcccessHelper.QueryFirstOrDefault<User>(sql);
             return user;
         }
         public static bool InsertLoginInfo(string userId)
         {
-            string sql = string.Format(@"INSERT INTO [WaterSupplySecurity].[dbo].[UserScore]([UserID],[CreateTime]) VALUES({0},{1})",userId,DateTime.Now);
+            string sql = string.Format(@"INSERT INTO [WaterSupplySecurity].[dbo].[UserScore]([UserID],[CreateTime]) VALUES({0},'{1}')",userId,DateTime.Now);
             int reuslt = DataAcccessHelper.Execute(sql.ToString());
             if (reuslt > 0)
             {

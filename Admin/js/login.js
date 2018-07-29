@@ -9,7 +9,7 @@ var vm = new Vue({
 		toLogin: function(){
 			axios({
 			    method: 'get',
-			    url: config.login_href,
+                url: config.login_href + "?account=" + this.userAccount + "&passWord=" + this.password,
 			    data: {
 			        username: this.userAccount,
 			        password: this.password

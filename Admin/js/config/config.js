@@ -1,13 +1,13 @@
 function Config() {
-    var test = true;
+    var test = false;
 	if (test) {
 		// 测试假数据
 		this.login_href = '../js/data/login.json';
         this.getQuestionList_href = '../js/data/index.json';
 	}else{
 		// 正式环境
-		this.login_href = '';
-        this.getQuestionList_href = '';
+        this.login_href = '/Result/RemoteLogin';
+        this.getQuestionList_href = '/Result/RemoteIndex';
 	}
 }
 Config.prototype = {
