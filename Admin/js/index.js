@@ -30,12 +30,10 @@ var vm = new Vue({
                             vm.questionList[i].userAnswerList = [false,false,false,false];
                         }; 
                     };
-                    var firstTime = res.data.FirstLoginTime;
+                    var finishTime = res.data.FirstLoginTime+1800;
                     var currentTime = res.data.NowTime;
-                    console.log(firstTime)
-                    console.log(currentTime)
-                    var minute = Math.floor((currentTime - firstTime)/60);
-                    var second = (currentTime - firstTime)%60;
+                    var minute = Math.floor((finishTime-currentTime)/60);
+                    var second = (finishTime - currentTime)%60;
                     var timergo = function(){
                         setTimeout(function(){
                             second--;
