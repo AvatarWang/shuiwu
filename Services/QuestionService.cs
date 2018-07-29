@@ -15,16 +15,27 @@ namespace Services
             var userScore = DataHelp.GetUserScore(userId);
             if (userScore.IsSubmit != "1")
             {
-                var userAnswerList = DataHelp.GetUserAnswer(userId);
-                //已经有数据的情况下根据题目id去题库读取数据返回
-                if (userAnswerList.Any())
+                var questionList = DataHelp.GetQuestionList();
+                var oneList = questionList.Where(x => x.Type == "1"&&x.Multi=="0").Take(8).ToList();
+                var oneMultiList = questionList.Where(x => x.Type == "1" && x.Multi == "1").Take(2).ToList();
+                int type = 6;
+                int multi = 2;
+                for (int i = 1; i < type; i++)
                 {
-                    
+                    for (int j = 0; j < multi; j++)
+                    {
+                        if (j == 0)
+                        {
+                            model.QuestionList.AddRange(questionList.Where(x => x.Type == i.ToString() && x.Multi == j.ToString()).Take(8).ToList());
+                        }
+                        else
+                        {
+                            model.QuestionList.AddRange(questionList.Where(x => x.Type == i.ToString() && x.Multi == j.ToString()).Take(2).ToList());
+                        }
+                    }
                 }
-                else
-                {
-                    //无数据的情况下根据规则拿去数据
-                }
+                model.IsSubmit = "0";
+
             }
             else
             {

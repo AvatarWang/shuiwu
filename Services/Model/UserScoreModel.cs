@@ -9,7 +9,7 @@ namespace Services.Model
     public class UserScoreModel
     {
         public string IsSubmit { get; set; }
-        public string CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
         public string Score { get; set; }
         public string UpdateTime { get; set; }
     }
