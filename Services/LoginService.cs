@@ -17,11 +17,22 @@ namespace Services
         public LoginModel Login(string userName,string passWord)
         {
             LoginModel model = new LoginModel();
-            var member = DataHelp.GetUserByAccount(userName);
-            if (member != null)
+            try
             {
-                model.Status = "1";
-                model.UserId = member.ID.ToString();
+                var member = DataHelp.GetUserByAccount(userName);
+                if (member != null)
+                {
+
+                    model.UserId = member.ID.ToString();
+                    if (DataHelp.InsertLoginInfo(model.UserId))
+                    {
+                        model.Status = "1";
+                    }
+                }
+            }
+            catch
+            {
+                model.Status = "0";
             }
             return model;
         }
