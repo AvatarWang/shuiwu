@@ -14,6 +14,8 @@ namespace Services
     {
         static string connectionString = ConfigurationSettings.AppSettings["ConnectionString"];
 
+
+
         public static int Execute(string sql, object param = null)
         {
             var connection = new SqlConnection(connectionString);

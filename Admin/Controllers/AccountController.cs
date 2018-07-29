@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Admin.Models;
 using Services;
+using Services.Model;
 
 namespace Admin.Controllers
 {
@@ -70,7 +71,7 @@ namespace Admin.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-          
+            var datra = DataAcccessHelper.Query<QuestionModel>("select * from QuestionBank ");
             //ViewBag.ReturnUrl = returnUrl;
             return View();
         }
