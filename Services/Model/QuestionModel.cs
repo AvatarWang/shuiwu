@@ -16,11 +16,13 @@ namespace Services.Model
         public string IsSubmit { get; set; }
         public string Score { get; set; }
         public List<QuestionEntity> QuestionList { get; set; }
+        public string Status { get; set; }
+        public string NowTime { get; set; }
 
     }
     public class QuestionEntity
     {
-        public string QuestionId { get; set; }
+        public string Id { get; set; }
         public string OptionA { get; set; }
         public string OptionB { get; set; }
         public string OptionC { get; set; }

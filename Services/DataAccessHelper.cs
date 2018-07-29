@@ -42,5 +42,12 @@ namespace Services
 
             return connection.QueryFirst<T>(sql, param);
         }
+        public static T QueryFirstOrDefault<T>(string sql, object param = null)
+        {
+            var connection = new SqlConnection(connectionString);
+
+            return connection.QueryFirstOrDefault<T>(sql, param);
+        }
+        
     }
 }

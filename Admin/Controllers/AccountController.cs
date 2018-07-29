@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Admin.Models;
 using Services;
 using Services.Model;
+using Newtonsoft.Json;
 
 namespace Admin.Controllers
 {
@@ -72,8 +73,11 @@ namespace Admin.Controllers
         public ActionResult Login(string returnUrl)
         {
             var datra = DataAcccessHelper.Query<QuestionModel>("select * from QuestionBank ");
+            QuestionService service = new QuestionService();
+            var model = service.GetQuestionList("3905");
+            var json = JsonConvert.SerializeObject(model);
             //ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View(model);
         }
 
         //

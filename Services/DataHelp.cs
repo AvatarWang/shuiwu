@@ -27,6 +27,13 @@ namespace Services
         public static UserScoreModel GetUserScore(string userId)
         {
             UserScoreModel model = new UserScoreModel();
+            string sql = string.Format(@"SELECT 
+      [IsSubmit]
+      ,[CreateTime]
+      ,[Score]
+      ,[UpdateTime]
+  FROM[WaterSupplySecurity].[dbo].[UserScore] where UserID = {0}",userId);
+            model = DataAcccessHelper.QueryFirstOrDefault<UserScoreModel>(sql);
             return model;
         }
         public static List<QuestionEntity> GetQuestionList()
@@ -35,6 +42,17 @@ namespace Services
             Cache cache = HttpRuntime.Cache;
             if (cache["Keys"] == null)
             {
+                string sql = string.Format(@"SELECT ID,
+      [Question]
+      ,[OptionA]
+      ,[OptionB]
+      ,[OptionC]
+      ,[OptionD]
+      ,[Answer]
+      ,[Type]
+      ,[Multi]
+  FROM [WaterSupplySecurity].[dbo].[QuestionBank]");
+                list = DataAcccessHelper.Query<QuestionEntity>(sql).ToList();
                 cache.Insert("Keys", list);
             }
             {
