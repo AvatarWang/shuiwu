@@ -19,10 +19,10 @@ var vm = new Vue({
 	methods: {
 		toLogin: function(){
 			axios({
-			    method: 'get',
-                url: config.login_href + "?account=" + this.userAccount + "&passWord=" + this.password,
+			    method: 'post',
+                url: config.login_href,
 			    data: {
-			        username: this.userAccount,
+                    account: this.userAccount,
 			        password: this.password
 			    }
 			}).then(function(res){
@@ -30,7 +30,7 @@ var vm = new Vue({
                 if(data.Status=="1"){
                     console.log('登录成功');
                     sessionStorage.setItem("token",data.UserId);
-                    window.location.replace("../index.html?userId="+data.UserId);
+                    window.location.replace("../index.html");
                 };
 			});		
 		}

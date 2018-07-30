@@ -1,70 +1,72 @@
-var config = new Config();
+锘縱ar config = new Config();
 var params = config.parseQueryString(window.location.href);
 var token = sessionStorage.getItem("token");
 if (!token) {
     window.location.replace("../login.html");
 };
 var vm = new Vue({
-	el: '#app',
-	data: {
-		userId: params['userId'],
+    el: '#app',
+    data: {
+        userId: token,
         questionList: [],
         timer: [],
         isSubmit: '',
         score: '',
-        isMobile:''
-	},
+        isMobile: ''
+    },
     created: function () {
-        var userQuestionList = localStorage.getItem("userQuestionList_"+this.userId);
-        if(userQuestionList){
-            this.$nextTick(function(){
+        var userQuestionList = localStorage.getItem("userQuestionList_" + this.userId);
+        if (userQuestionList) {
+            this.$nextTick(function () {
                 vm.questionList = JSON.parse(userQuestionList);
-            });   
+            });
         }
-		this.$nextTick(function(){
+        this.$nextTick(function () {
             axios({
-                method: 'get',
-                url: config.getQuestionList_href + "?userId=" + this.userId,
+                method: 'post',
+                url: config.getQuestionList_href,
                 data: {
                     userid: this.userId
                 }
-            }).then(function(res){
+            }).then(function (res) {
                 if (res.data.Status == "1") {
                     if (!userQuestionList) {
                         vm.questionList = res.data.QuestionList;
-                        for(i=0;i<vm.questionList.length;i++){
-                            vm.questionList[i].name = 'question' + (i+1);
-                            vm.questionList[i].userAnswerList = [false,false,false,false];
-                        }; 
+                        for (i = 0; i < vm.questionList.length; i++) {
+                            vm.questionList[i].name = 'question' + (i + 1);
+                            vm.questionList[i].userAnswerList = [false, false, false, false];
+                        };
                     };
                     vm.isSubmit = res.data.IsSubmit == '0' ? false : true;
                     vm.score = res.data.Score;
-                    var finishTime = parseInt(res.data.FirstLoginTime)+1800;
+                    var finishTime = parseInt(res.data.FirstLoginTime) + 1800;
                     var currentTime = parseInt(res.data.NowTime);
-                    var minute = Math.floor((finishTime-currentTime)/60);
+                    var minute = Math.floor((finishTime - currentTime) / 60);
                     var second = (finishTime - currentTime) % 60;
                     var finish = false;
                     var timergo = function () {
                         setTimeout(function () {
-                            second--; 
-                            if(second<=0){
+                            second--;
+                            if (second <= 0) {
                                 second = 59;
                                 minute--;
                             }
                             if (minute >= 0) {
                                 timergo();
-                            } 
+                            }
                             if (minute < 0) {
                                 vm.isSubmit = true;
                                 vm.saveAnswer();
                             }
                             vm.timer = [minute, second];
-                        }, 1000);               
+                        }, 1000);
                     };
-                    timergo();
+                    if (!vm.isSubmit) {
+                        timergo();
+                    };
                 };
             });
-        }); 	
+        });
     },
     mounted: function () {
         var ua = navigator.userAgent;
@@ -76,11 +78,11 @@ var vm = new Vue({
             this.isMobile = 'mobile';
         }
     },
-	methods: {
-		choseAnswer: function(){
-            localStorage.removeItem("userQuestionList_"+this.userId);
-            this.$nextTick(function(){
-                localStorage.setItem("userQuestionList_"+this.userId,JSON.stringify(vm.questionList));
+    methods: {
+        choseAnswer: function () {
+            localStorage.removeItem("userQuestionList_" + this.userId);
+            this.$nextTick(function () {
+                localStorage.setItem("userQuestionList_" + this.userId, JSON.stringify(vm.questionList));
             });
         },
         saveAnswer: function () {
@@ -88,7 +90,7 @@ var vm = new Vue({
                 UserId: this.userId,
                 UserAnswerList: []
             };
-            for (i = 0; i < vm.questionList.length; i++){
+            for (i = 0; i < vm.questionList.length; i++) {
                 var answerArray = vm.questionList[i].userAnswerList.filter(function (item) {
                     return item != false;
                 });
@@ -98,7 +100,7 @@ var vm = new Vue({
                 }
                 params.UserAnswerList.push(questionItem);
             }
-            
+
             axios({
                 method: 'post',
                 url: config.submitAnswer_href,
@@ -107,9 +109,8 @@ var vm = new Vue({
                 if (res.data.Status == '1') {
                     vm.isSubmit = true;
                     vm.score = res.data.Score;
-                    console.log("提交成功！");
                 }
             });
         }
-	}
+    }
 });

@@ -24,10 +24,18 @@ namespace Services
                 {
 
                     model.UserId = member.ID.ToString();
-                    if (DataHelp.InsertLoginInfo(model.UserId))
+                    if (DataHelp.GetUserScore(model.UserId) == null)
+                    {
+                        if (DataHelp.InsertLoginInfo(model.UserId))
+                        {
+                            model.Status = "1";
+                        }
+                    }
+                    else
                     {
                         model.Status = "1";
                     }
+
                 }
             }
             catch

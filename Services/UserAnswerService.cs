@@ -15,38 +15,48 @@ namespace Services
             SubmitResponseModel model = new SubmitResponseModel();
             try
             {
-                if (DataHelp.SubmitAnswer(parameter))
+                var userScore = DataHelp.GetUserScore(parameter.UserId);
+                if (userScore.IsSubmit != "1")
                 {
-                    var questionList = DataHelp.GetQuestionList();
-                    int sum = 0;
-                    foreach (var answer in parameter.UserAnswerList)
+                    if (DataHelp.SubmitAnswer(parameter))
                     {
-                        var userAnswer = questionList.Where(x => x.Id == answer.QuestionId).FirstOrDefault();
-                        if (userAnswer != null)
+                        var questionList = DataHelp.GetQuestionList();
+                        int sum = 0;
+                        foreach (var answer in parameter.UserAnswerList)
                         {
-                            if (userAnswer.Answer == answer.Answer)
+                            var userAnswer = questionList.Where(x => x.Id == answer.QuestionId).FirstOrDefault();
+                            if (userAnswer != null)
                             {
-                                if (userAnswer.Multi == "1")
+                                if (userAnswer.Answer == answer.Answer)
                                 {
-                                    sum++;
-                                }
-                                else
-                                {
-                                    sum = sum + 2;
+                                    if (userAnswer.Multi == "1")
+                                    {
+                                        sum++;
+                                    }
+                                    else
+                                    {
+                                        sum = sum + 2;
+                                    }
                                 }
                             }
                         }
-                    }
-                    if (DataHelp.SubmitScore(parameter.UserId, sum))
-                    {
-                        model.Score = sum.ToString();
-                        model.Status = "1";
-                    }
-                    else
-                    {
-                        model.Status = "0";
+                        if (DataHelp.SubmitScore(parameter.UserId, sum))
+                        {
+                            model.Score = sum.ToString();
+                            model.Status = "1";
+                        }
+                        else
+                        {
+                            model.Status = "0";
+                        }
                     }
                 }
+                else
+                {
+                    model.Score = userScore.Score.ToString();
+                    model.Status = "1";
+                }
+                
             }
             catch
             {
