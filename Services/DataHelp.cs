@@ -71,7 +71,7 @@ namespace Services
             StringBuilder sql = new StringBuilder();
             foreach (var answer in parameter.UserAnswerList)
             {
-                sql.Append(string.Format(@"INSERT INTO [WaterSupplySecurity].[dbo].[UserAnswer]([UserId],[QuestionId],[Answer]) VALUES({0},{1},{2});", parameter.UserId,answer.QuestionId,answer.Answer));
+                sql.Append(string.Format(@"INSERT INTO [WaterSupplySecurity].[dbo].[UserAnswer]([UserId],[QuestionId],[Answer]) VALUES({0},{1},'{2}');", parameter.UserId,answer.QuestionId,answer.Answer));
             }
             int reuslt = DataAcccessHelper.Execute(sql.ToString());
             if (reuslt > 0)
@@ -84,7 +84,7 @@ namespace Services
         public static bool SubmitScore(string userId, int score)
         {
             //string sql = string.Format(@"INSERT INTO [WaterSupplySecurity].[dbo].[UserScore]([UserID],[IsSubmit],[CreateTime],[Score],[UpdateTime]) VALUES({0},{1},{2},{3},{4})",);
-            string sql = string.Format(@"UPDATE [WaterSupplySecurity].[dbo].[UserScore] SET [IsSubmit] = 1,[Score] = {0},[UpdateTime] = {1} WHERE UserID={2}",score,DateTime.Now,userId);
+            string sql = string.Format(@"UPDATE [WaterSupplySecurity].[dbo].[UserScore] SET [IsSubmit] = 1,[Score] = {0},[UpdateTime] = '{1}' WHERE UserID={2}",score,DateTime.Now,userId);
             int reuslt = DataAcccessHelper.Execute(sql.ToString());
             if (reuslt > 0)
             {

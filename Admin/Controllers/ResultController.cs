@@ -124,7 +124,7 @@ where ua.UserId=" + param.id;
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult RemoteLogin(string account,string passWord)
+        public JsonResult RemoteLogin(string account, string passWord)
         {
             LoginService service = new LoginService();
             var model = service.Login(account, passWord);
@@ -136,5 +136,12 @@ where ua.UserId=" + param.id;
             var model = service.GetQuestionList(userId);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [System.Web.Http.HttpPost]
+        public JsonResult SubmitAnswer(SubmitAnswerParameter parameter)
+        {
+            UserAnswerService service = new UserAnswerService();
+            var model = service.SubmitAnswer(parameter);
+            return Json(model);
+        } 
     }
 }

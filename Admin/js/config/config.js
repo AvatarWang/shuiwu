@@ -8,6 +8,7 @@ function Config() {
 		// 正式环境
         this.login_href = '/Result/RemoteLogin';
         this.getQuestionList_href = '/Result/RemoteIndex';
+        this.submitAnswer_href = '/Result/SubmitAnswer';
 	}
 }
 Config.prototype = {

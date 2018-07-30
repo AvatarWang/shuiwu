@@ -3,8 +3,19 @@ var vm = new Vue({
 	el: '#app',
 	data: {
 		userAccount: '',
-		password: ''
-	},
+        password: '',
+        isMobile: ''
+    },
+    mounted: function () {
+        var ua = navigator.userAgent;
+        var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+            isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+            isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+            isMobile = ipad || isIphone || isAndroid;
+        if (isMobile) {
+            this.isMobile = 'mobile';
+        } 
+    },
 	methods: {
 		toLogin: function(){
 			axios({
@@ -15,10 +26,10 @@ var vm = new Vue({
 			        password: this.password
 			    }
 			}).then(function(res){
-                console.log(res);
                 var data = res.data;
-                if(data.Status==1){
+                if(data.Status=="1"){
                     console.log('登录成功');
+                    sessionStorage.setItem("token",data.UserId);
                     window.location.replace("../index.html?userId="+data.UserId);
                 };
 			});		

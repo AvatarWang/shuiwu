@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
@@ -19,10 +19,11 @@
 <body>
 	<canvas id="main"></canvas>
 	<div class="wrap" id="app">
-		<div class="loginBox">
-			<div class="logo">华衍杯  ·  江苏省首届供水安全知识竞赛</div>
+		<div class="loginBox" :class="isMobile">
+			<div class="logo" v-if="!isMobile">华衍杯  ·  江苏省首届供水安全知识竞赛</div>
+            <div class="logo" v-if="isMobile">华衍杯<br/>江苏省首届供水安全知识竞赛</div>
 			<input type="text" v-model="userAccount" placeholder="账号">
-			<input type="password" v-model="password" placeholder="邮箱">
+			<input type="password" v-model="password" placeholder="密码">
 			<button type="button" @click="toLogin()">登录</button>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
@@ -18,12 +18,12 @@
 </head>
 <body>
     <div class="pageBg"></div>
-	<div class="wrap" id="app">
+	<div class="wrap" id="app" :class="isMobile">
+        <div class="timeBox" v-if="!isSubmit">距离考试结束还有<span>{{timer[0]}}</span>分钟<span>{{timer[1]}}</span>秒</div>
 		<div class="paper">
             <div class="title">华衍杯  ·  江苏省首届供水安全知识竞赛</div>
-            <div class="timeBox">距离考试结束还有<span>{{timer[0]}}</span>分钟<span>{{timer[1]}}</span>秒</div>
             <div class="content">
-                <div class="questionBox" v-for="(question,index) of questionList">
+                <div class="questionBox" v-if="!isSubmit" v-for="(question,index) of questionList">
                     <div class="questionTxt">{{index+1}}.  {{question.Question}}</div>
                     <div class="questionAnswer">
                         <input type="checkbox" v-if="question.Multi==2" v-model="question.userAnswerList[0]" :true-value="'A'" @click="choseAnswer()">
@@ -44,9 +44,10 @@
                         <input type="checkbox" v-if="question.Multi==2" v-model="question.userAnswerList[3]" :true-value="'D'" @click="choseAnswer()">
                         <input type="radio" v-if="question.Multi==1" v-model="question.userAnswerList[0]" v-bind:name="question.name" value="D" @click="choseAnswer()">
                         <span>{{question.OptionD}}</span>
-                    </div>
-                </div>
-                <button type="button" class="submitBtn">提交</button>
+                    </div> 
+                </div> 
+                <button type="button" v-if="!isSubmit" class="submitBtn" @click="saveAnswer()">提交</button>
+                <div class="score" v-if="isSubmit">答题已结束，您本次的得分是<span>{{score}}</span>分！</div>
             </div>
         </div>
 	</div>

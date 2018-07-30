@@ -39,6 +39,10 @@ namespace Services
                     }
                     model.QuestionList.AddRange(singleQuestionList.OrderBy(x => Guid.NewGuid()));
                     model.QuestionList.AddRange(multiQuestionList.OrderBy(x => Guid.NewGuid()));
+                    for (int i = 0; i > model.QuestionList.Count; i++)
+                    {
+                        model.QuestionList[i].Answer = string.Empty;
+                    }
                     model.IsSubmit = "0";
                     model.FirstLoginTime = ((userScore.CreateTime.ToUniversalTime().Ticks - 621355968000000000)/ 10000000).ToString();
                     model.NowTime = ((DateTime.Now.ToUniversalTime().Ticks- 621355968000000000)/10000000).ToString();

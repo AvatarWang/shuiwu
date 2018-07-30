@@ -1,12 +1,13 @@
-html,body{
-	padding: 0;
-	margin: 0;
-	font-family: '微软雅黑';
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: "Microsoft YaHei";
 }
-*{
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-family: "Microsoft YaHei";
 }
 .pageBg{
     position: fixed;
@@ -103,4 +104,67 @@ html,body{
     color: #fff;
     cursor: pointer;
     margin: 30px auto 0;
+}
+.score {
+    width: 100%;
+    height: 500px;
+    margin-top: 30px;
+    color: #666666;
+    font-size: 18px;
+    line-height: 500px;
+    text-align: center;
+}
+.score span {
+    margin: 0 10px;
+    font-size: 20px;
+    color: #00FF7F;
+}
+.wrap.mobile {
+    padding: 0;
+}
+.wrap.mobile .paper{
+    width:100%;
+    border:none;
+    padding:30px;
+}
+.wrap.mobile .paper .title{
+    font-size:14px;
+}
+.wrap.mobile .paper .content {
+    border-top: 2px solid #3c9ccf;
+}
+.wrap.mobile .paper .content .score {
+    position: fixed;
+    top: 82px;
+    left:0;
+    bottom: 0;
+    width: 100%;
+    height:auto;
+    z-index: 2;
+    background-color: #f2f2f2;
+    margin: 0;
+    line-height:30px;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.wrap.mobile .timeBox{
+    width:100%;
+    height:40px;
+    line-height:40px;
+    top:auto;
+    left:0;
+    bottom:0;
+    margin:0;
+    font-size:14px;
+}
+.wrap.mobile .timeBox span{
+    font-size:16px;
+}
+.wrap.mobile .questionBox .questionTxt{
+    font-size:14px;
+}
+.wrap.mobile .submitBtn {
+    margin: 30px auto 40px;
 }
